@@ -7,11 +7,7 @@ select * from practical_exercise_1.user;
 
 select * from practical_exercise_1.activitylog; 
 
--- ingesting csv files from hdfs to hive 
-
-CREATE EXTERNAL TABLE if not exists practical_exercise_1.user_upload_dump ( user_id int, file_name STRING, timestamp int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE LOCATION '/user/cloudera/workshop/exercise1/' tblproperties ('skip.header.line.count' = '1');
-
-select count(*) from practical_exercise_1.user_upload_dump;
+select * from practical_exercise_1.user_upload_dump; 
 
 -- generating user_report table  
 
