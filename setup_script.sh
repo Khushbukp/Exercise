@@ -1,7 +1,6 @@
 ## this is the variable will hold record code the command if it fails. default its value is 0, means success.
 ## If this variable value is zero, means that all the commands in this script executed successfully
 
-finalReturnCode=0
 validate_execution()
 {
   # Function. Argument 1 is the return code
@@ -12,9 +11,7 @@ validate_execution()
   if [ "${1}" -ne "0" ]; 
   then
 	echo " +++ ERROR +++ ############# Return Code :- ${1} : ${2}"
-	finalReturnCode=${1}
 	exit ${1}   ## enable this if the requirement is to exit the flow when any error occurs.
-
    else
 	echo "++++ SUCCESS +++ ############# Return Code :- ${1} : ${2}"
   fi
@@ -63,9 +60,6 @@ validate_execution $? "Creating hive table user_report"
 hive -e "CREATE TABLE if not exists practical_exercise_1.user_total (time_ran TIMESTAMP, total_users int, user_added int);" 
 validate_execution $? "Creating hive table user_total"
 
-## Final return of the execution
-echo "------------> The final return code of the script is------> :$finalReturnCode"
-exit $?
 
 
 

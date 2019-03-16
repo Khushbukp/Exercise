@@ -1,7 +1,6 @@
 ## this is the variable will hold record code the command if it fails. default its value is 0, means success.
 ## If this variable value is zero, means that all the commands in this script executed successfully
 
-finalReturnCode=0
 validate_execution()
 {
   # Function. Argument 1 is the return code
@@ -12,9 +11,7 @@ validate_execution()
   if [ "${1}" -ne "0" ]; 
   then
 	echo " +++ ERROR +++ ############# Return Code :- ${1} : ${2}"
-	finalReturnCode=${1}
 	exit ${1}   ## enable this if the requirement is to exit the flow when any error occurs.
-
    else
 	echo "++++ SUCCESS +++ ############# Return Code :- ${1} : ${2}"
   fi
@@ -64,12 +61,15 @@ validate_execution $? "moving all csv files to TEMP folder"
 hadoop fs -put   /home/cloudera/TEMP/*.csv   /user/cloudera/workshop/exercise1/  
 validate_execution $? "copying all csv files from local system to hdfs"
   
-hadoop fs -ls  /user/cloudera/workshop/exercise1/ 
+hadoop fs -ls  /user/cloudera/workshop/exercise1/
+validate_execution $? "seeing the content of the directory exercise1"
+
 mv /home/cloudera/TEMP/*.csv   /home/cloudera/backup/
+validate_execution $? "check all .csv files moved to backup folder or not"
 
 
-## check the data of user_upload_dump
-hive -e "select * from practical_exercise_1.user_upload_dump;"
-validate_execution $? "see the data in the user_upload_dump table "
+## executing the hiveql.hql file
+hive -f /home/cloudera/heena/hiveql.hql 
+validate_execution $? 
 
 
