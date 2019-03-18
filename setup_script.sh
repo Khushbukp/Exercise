@@ -7,7 +7,6 @@ validate_execution()
   # 	      Argument 2 is text to display on Success/Failure message.
   #  uncomment the statement exit${1} if the requirement is to exit the flow when any error occurs.
 
-  
   if [ "${1}" -ne "0" ]; 
   then
 	echo " +++ ERROR +++ ############# Return Code :- ${1} : ${2}"
@@ -46,8 +45,7 @@ validate_execution $? "Hadoop creating direcotry /user/cloudera/workshop/exercis
 
 echo "let's see the content of workshop directory"
 hadoop fs -ls  /user/cloudera/workshop/ 
-validate_execution $? "Listing the content of  direcotry /user/cloudera/workshop/"
-  
+
 
 hive -e "CREATE EXTERNAL TABLE if not exists practical_exercise_1.user_upload_dump ( user_id int, file_name STRING, timestamp int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE LOCATION '/user/cloudera/workshop/exercise1/' tblproperties ('skip.header.line.count' = '1');"
 validate_execution $? "Creating hive external table user_upload_dump"

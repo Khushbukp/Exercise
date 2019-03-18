@@ -19,15 +19,13 @@ validate_execution()
 
 ## Droping database 
 hive -e "drop database practical_exercise_1 CASCADE;"
-validate_execution $? "To drop the practical_exercise_1 Database"
 
 ## show database 
 hive -e "show databases;"
-validate_execution $? "show databases"
  
 ## delete the directory 
 hadoop fs -rmr  /user/cloudera/workshop/exercise1
-validate_execution $? "deleting the exercise1 directory "
+validate_execution $? "deleting the exercise1 directory"
 
 ## deleting sqoop job 
 sqoop job \

@@ -23,7 +23,6 @@ python /home/cloudera/practical_exercise_data_generator.py --load_data
 python /home/cloudera/practical_exercise_data_generator.py --create_csv
 
 ## executing sqoop job
-
 sqoop job \
 --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop \
 --exec practical_exercise_1.activitylog 
@@ -44,16 +43,13 @@ validate_execution $? "overwriting user data"
 
 
 ## To ingest CSV files from the local file system into HDFS
-
-#!/bin/sh
-IFS='
-'
 i=0
 for file in *.csv
 do
  echo "file name before appending time stamp --> $file"
  filename=$(cut -d'.' -f1 <<<"$file")
  mv $file /home/cloudera/TEMP/$filename.$(date +%s)$i.csv
+validate_execution $? "moving csv file to TEMP folder"
 i=$(($i+1))
 done
 validate_execution $? "moving all csv files to TEMP folder"
@@ -67,9 +63,5 @@ validate_execution $? "seeing the content of the directory exercise1"
 mv /home/cloudera/TEMP/*.csv   /home/cloudera/backup/
 validate_execution $? "check all .csv files moved to backup folder or not"
 
-
-## executing the hiveql.hql file
-hive -f /home/cloudera/heena/hiveql.hql 
-validate_execution $? 
 
 
