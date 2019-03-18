@@ -8,7 +8,6 @@ insert overwrite table practical_exercise_1.user_report Select u.id, al.total_up
 select * from practical_exercise_1.user_report; 
 
 --inser data into user_total table 
-
 insert into practical_exercise_1.user_total select current_timestamp,a.cnt,a.cnt-coalesce(b.total_users,0) from (select 1 c,count(*) cnt  from practical_exercise_1.user) a left join ( select 1 d ,total_users,user_added,time_ran from practical_exercise_1.user_total order by time_ran desc limit 1) b on a.c=b.d;
 
 -- see the data of user_total table
