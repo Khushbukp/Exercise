@@ -1,5 +1,5 @@
 ## this is the variable will hold record code the command if it fails. default its value is 0, means success.
-## If this variable value is zero, means that all the commands in this script executed successfully
+## If this variable value is zero, means that all the commands in this script executed successfully.
 
 validate_execution()
 {
