@@ -18,6 +18,7 @@ hadoop fs -rmr  /user/cloudera/workshop/exercise1
 validate_execution $? "deleting the exercise1 directory"
 else
 echo "directory isn't exist"
+validate_execution $? "directory isn't exist !!!"
 fi
 
 ## deleting sqoop job 
