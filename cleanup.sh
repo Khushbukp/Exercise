@@ -13,13 +13,17 @@ hadoop fs -test -e /user/cloudera/workshop/exercise1
 
 if [ "$?" -eq 0 ]
 then
+echo "directory is exist"
 hadoop fs -rmr  /user/cloudera/workshop/exercise1
 validate_execution $? "deleting the exercise1 directory"
+else
+echo "directory isn't exist"
 fi
 
 ## deleting sqoop job 
 (sqoop job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --list) | grep 'practical_exercise_1.activitylog' &> /dev/null 
-validate_execution $? "conforming sqoop job"
+validate_execution $? "Conforming sqoop job"
+
 if [ $? == 0 ];
  then 
     echo "matched"
