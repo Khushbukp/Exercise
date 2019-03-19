@@ -1,21 +1,6 @@
-## this is the variable will hold record code the command if it fails. default its value is 0, means success.
-## If this variable value is zero, means that all the commands in this script executed successfully
+## Importing the utility function from file Exercise_Utility_Functions which contains method called validate_execution
 
-validate_execution()
-{
-  # Function. Argument 1 is the return code
-  # 	      Argument 2 is text to display on Success/Failure message.
-  #  uncomment the statement exit${1} if the requirement is to exit the flow when any error occurs.
-
-  
-  if [ "${1}" -ne "0" ]; 
-  then
-	echo " +++ ERROR +++ ############# Return Code :- ${1} : ${2}"
-	exit ${1}   ## enable this if the requirement is to exit the flow when any error occurs.
-   else
-	echo "++++ SUCCESS +++ ############# Return Code :- ${1} : ${2}"
-  fi
-}
+. /home/cloudera/heena/Exercise_utility_function
 
 ## Droping database 
 hive -e "drop database practical_exercise_1 CASCADE;"
@@ -24,14 +9,26 @@ hive -e "drop database practical_exercise_1 CASCADE;"
 hive -e "show databases;"
  
 ## delete the directory 
+hadoop fs -test -e /user/cloudera/workshop/exercise1
+
+if [ "$?" -eq 0 ]
+then
 hadoop fs -rmr  /user/cloudera/workshop/exercise1
 validate_execution $? "deleting the exercise1 directory"
+fi
 
 ## deleting sqoop job 
-sqoop job \
---meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop \
---delete practical_exercise_1.activitylog
-validate_execution $? "deleting the sqoop job"
+(sqoop job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --list) | grep 'practical_exercise_1.activitylog' &> /dev/null 
+validate_execution $? "conforming sqoop job"
+if [ $? == 0 ];
+ then 
+    echo "matched"
+	## deleting sqoop job if the name is exist
+	sqoop job \
+	--meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop \
+	--delete practical_exercise_1.activitylog
+  validate_execution $? "deleting the sqoop job"
+fi
 
 ## listing the sqoop jobs
 sqoop job \
