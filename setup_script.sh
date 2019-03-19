@@ -1,20 +1,6 @@
-## this is the variable will hold record code the command if it fails. default its value is 0, means success.
-## If this variable value is zero, means that all the commands in this script executed successfully
+## Importing the utility function from file Exercise_Utility_Functions which contains method called validate_execution
 
-validate_execution()
-{
-  # Function. Argument 1 is the return code
-  # 	      Argument 2 is text to display on Success/Failure message.
-  #  uncomment the statement exit${1} if the requirement is to exit the flow when any error occurs.
-
-  if [ "${1}" -ne "0" ]; 
-  then
-	echo " +++ ERROR +++ ############# Return Code :- ${1} : ${2}"
-	exit ${1}   ## enable this if the requirement is to exit the flow when any error occurs.
-   else
-	echo "++++ SUCCESS +++ ############# Return Code :- ${1} : ${2}"
-  fi
-}
+. /home/cloudera/heena/Exercise_utility_function
 
 ## create database  practical_exercise_1
 hive -e "create database practical_exercise_1;" 
