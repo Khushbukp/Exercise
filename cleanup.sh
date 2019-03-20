@@ -21,7 +21,10 @@ echo "directory isn't exist"
 fi
 
 ## deleting sqoop job 
-(sqoop job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --list) | grep 'practical_exercise_1.activitylog' &> /dev/null 
+sqoopJobOutput=$(sqoop job --meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop --list)
+validate_execution $? "listing the sqoop job"
+echo $sqoopJobOutput
+grep 'practical_exercise_1.activitylog' <<< $sqoopJobOutput 
 
 if [ $? == 0 ];
  then 
@@ -30,16 +33,10 @@ if [ $? == 0 ];
 	sqoop job \
 	--meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop \
 	--delete practical_exercise_1.activitylog
-  validate_execution $? "deleting the sqoop job"
+         validate_execution $? "deleting the sqoop job"
 else
-echo "not matched"
+    echo "not matched"
 fi
-
-## listing the sqoop jobs
-sqoop job \
---meta-connect jdbc:hsqldb:hsql://localhost:16000/sqoop \
---list
-validate_execution $? "listing the all sqoop jobs"
 
 
 
