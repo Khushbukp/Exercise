@@ -37,15 +37,11 @@
             <plugin>
                 <groupId>org.scala-tools</groupId>
                 <artifactId>maven-scala-plugin</artifactId>
-
                 <executions>
-                    <!-- <execution> <id>add-source</id> <goals> <goal>add-source</goal>
-                        </goals> <phase>compile</phase> </execution> -->
                     <execution>
                         <id>compile</id>
                         <phase>compile</phase>
                         <goals>
-
                             <goal>compile</goal>
                         </goals>
                     </execution>
