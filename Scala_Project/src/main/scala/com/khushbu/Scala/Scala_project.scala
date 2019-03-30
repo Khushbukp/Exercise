@@ -5,11 +5,11 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.hive.HiveContext
 
 object Scala_project {
-  def main(args:Array[String]){
+  def main(args: Array[String]) {
 
     val conf = new SparkConf().setAppName("spark_task").setMaster("local")
     val sc = new SparkContext(conf)
-    val sqlContext= new org.apache.spark.sql.SQLContext(sc)
+    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
     val hqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
